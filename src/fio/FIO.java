@@ -2,7 +2,7 @@ package fio;
 
 import java.util.Objects;
 
-import static fio.FIO.compareResult.*;
+//import static fio.FIO.compareResult.*;
 
 /**
  * Класс Русскоязычное ФИО
@@ -23,16 +23,17 @@ public class FIO {
         return patronymic;
     }
 
-    public void setSurname(String surname) throws IllegalAccessException {
+    public boolean setSurname(String surname) throws IllegalAccessException {
         this.surname = surname;
-        if(!FIOIsRight()){
+        if (!isValid()) {
             throw new IllegalAccessException("ФИО введено неверно");
         }
+        return isValid();
     }
 
-    private boolean FIOIsRight() {
-        boolean surnameIsRight = this.toString().matches("[А-ЯЁ][а-яё]*([-][А-ЯЁ][а-яё]*)? [А-ЯЁ][а-яё]* [А-ЯЁ][а-яё]*");
-        return surnameIsRight;
+    private boolean isValid() {
+        boolean isValid = this.toString().matches("[А-ЯЁ][а-яё]*([-][А-ЯЁ][а-яё]*)? [А-ЯЁ][а-яё]* [А-ЯЁ][а-яё]*");
+        return isValid;
     }
     /* ===================== Фамилия Имя Отчество ======================== */
 
@@ -46,7 +47,7 @@ public class FIO {
         this.surname = surname;
         this.name = name;
         this.patronymic = patronymic;
-        if (!FIOIsRight()) {
+        if (!isValid()) {
             throw new IllegalAccessException("ФИО введено неверно");
         }
     }
@@ -64,12 +65,22 @@ public class FIO {
     }
 
     /**
-     * Выдает строку в формате Курляк Д.В.
+     * Выдает строку в разных форматах
      *
+     * @param act %B-короткое; %F - полное; %S - только фамилия; %NP - имя и отчество
      * @return строка в формате Фамилия И. О.
      */
-    public String formatFIO() {
-        return surname + " " + name.charAt(0) + "." + patronymic.charAt(0) + ".";
+    public String formatFIO(String act) {
+        if (act.equals("%B")) // Briefly
+            return surname + " " + name.charAt(0) + "." + patronymic.charAt(0) + ".";
+        else if (act.equals("%F")) // Full Name
+            return surname + " " + name + ' ' + patronymic;
+        else if (act.equals("%S")) // Just Surname
+            return surname;
+        else if (act.equals("%NP")) // Name + Patronymic
+            return name + ' ' + patronymic;
+        else
+            return "Error";
     }
 
     /**
@@ -78,9 +89,9 @@ public class FIO {
      * @param Other фамилия, которую необходимо добавить
      * @return Фио, с добавленной фамилией
      */
-    public FIO addSurname(String Other) throws IllegalAccessException{
+    public FIO addSurname(String Other) throws IllegalAccessException {
         this.surname = this.surname.concat("-" + Other);
-        if(!FIOIsRight()){
+        if (!isValid()) {
             throw new IllegalAccessException("ФИО введено неверно");
         }
         return this;
@@ -109,27 +120,19 @@ public class FIO {
      * @param other вторая фамилия
      * @return первый выше в алфитном списке или второй
      */
-    public compareResult compare(FIO other) {
+    public int compare(FIO other) {
 
         int subSurname = this.surname.compareTo(other.surname);
         int subName = this.name.compareTo(other.name);
         int subPatronymic = this.patronymic.compareTo(other.patronymic);
 
         if (this.equals(other)) {
-            return equal;
+            return 0;
         } else if ((subSurname < 0) || (subSurname == 0 && subName < 0) || (subSurname == 0 && subName == 0 && subPatronymic < 0))
-            return firstFIOIsHigher;
+            return 1;
         else {
-            return secondFIOIsHigher;
+            return -1;
         }
     }
 
-    /**
-     * Результат функции compare
-     */
-    public enum compareResult {
-        equal,
-        firstFIOIsHigher,
-        secondFIOIsHigher;
-    }
 }

@@ -9,8 +9,8 @@ public class compareTEST {
         FIO fio1 = new FIO("Иванов", "Иван", "Иванович");
         FIO fio2 = new FIO("Иванов", "Иван", "Иванович");
 
-        FIO.compareResult exp_res = FIO.compareResult.equal;
-        FIO.compareResult real_res = fio1.compare(fio2);
+        int exp_res = 0;
+        int real_res = fio1.compare(fio2);
 
         Assert.assertEquals(real_res, exp_res);
     }
@@ -20,8 +20,8 @@ public class compareTEST {
         FIO fio1 = new FIO("Аванов", "Иван", "Иванович");
         FIO fio2 = new FIO("Иванов", "Иван", "Иванович");
 
-        FIO.compareResult exp_res = FIO.compareResult.firstFIOIsHigher;
-        FIO.compareResult real_res = fio1.compare(fio2);
+        int exp_res = 1;
+        int real_res = fio1.compare(fio2);
 
         Assert.assertEquals(real_res, exp_res);
     }
@@ -31,8 +31,8 @@ public class compareTEST {
         FIO fio1 = new FIO("Иванов", "Иван", "Иванович");
         FIO fio2 = new FIO("Аванов", "Иван", "Иванович");
 
-        FIO.compareResult exp_res = FIO.compareResult.secondFIOIsHigher;
-        FIO.compareResult real_res = fio1.compare(fio2);
+       int exp_res = -1;
+        int real_res = fio1.compare(fio2);
 
         Assert.assertEquals(real_res, exp_res);
     }
@@ -42,8 +42,8 @@ public class compareTEST {
         FIO fio1 = new FIO("Иванов", "Аван", "Иванович");
         FIO fio2 = new FIO("Иванов", "Иван", "Иванович");
 
-        FIO.compareResult exp_res = FIO.compareResult.firstFIOIsHigher;
-        FIO.compareResult real_res = fio1.compare(fio2);
+        int exp_res = 1;
+        int real_res = fio1.compare(fio2);
 
         Assert.assertEquals(real_res, exp_res);
     }
@@ -53,8 +53,8 @@ public class compareTEST {
         FIO fio1 = new FIO("Иванов", "Иван", "Иванович");
         FIO fio2 = new FIO("Иванов", "Аван", "Иванович");
 
-        FIO.compareResult exp_res = FIO.compareResult.secondFIOIsHigher;
-        FIO.compareResult real_res = fio1.compare(fio2);
+        int exp_res = -1;
+       int real_res = fio1.compare(fio2);
 
         Assert.assertEquals(real_res, exp_res);
     }
@@ -64,8 +64,8 @@ public class compareTEST {
         FIO fio1 = new FIO("Иванов", "Иван", "Аванович");
         FIO fio2 = new FIO("Иванов", "Иван", "Иванович");
 
-        FIO.compareResult exp_res = FIO.compareResult.firstFIOIsHigher;
-        FIO.compareResult real_res = fio1.compare(fio2);
+        int exp_res = 1;
+        int real_res = fio1.compare(fio2);
 
         Assert.assertEquals(real_res, exp_res);
     }
@@ -75,8 +75,8 @@ public class compareTEST {
         FIO fio1 = new FIO("Иванов", "Иван", "Иванович");
         FIO fio2 = new FIO("Иванов", "Иван", "Аванович");
 
-        FIO.compareResult exp_res = FIO.compareResult.secondFIOIsHigher;
-        FIO.compareResult real_res = fio1.compare(fio2);
+       int exp_res = -1;
+        int real_res = fio1.compare(fio2);
 
         Assert.assertEquals(real_res, exp_res);
     }
